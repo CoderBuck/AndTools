@@ -1,14 +1,10 @@
 package me.buck.andtools
 
-import android.app.ActivityManager
-import android.content.Context
-import android.content.pm.ApplicationInfo
-import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
+import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.AppUtils
-import android.content.pm.PackageInfo
-
+import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,33 +13,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // 根目录创建 AndTools 文件夹
+        val rootDir = Environment.getExternalStorageDirectory()
+        val andToolsDir = File(rootDir, "AndTools")
+        if (!andToolsDir.exists()) {
+            andToolsDir.mkdirs()
+        }
+
+        // 将所有 apk 拷贝到 AndTools 文件夹下
         val appsInfo = AppUtils.getAppsInfo()
-
-        println("appsInfo.size = ${appsInfo.size}")
-        appsInfo.forEach {
-            println(it.name)
+        for (appInfo in appsInfo) {
+            val apk = File(appInfo.packagePath)
+            Thread {
+                val target = File(andToolsDir, appInfo.name + ".apk")
+                apk.copyTo(target)
+            }.start()
         }
-
-        val pm = packageManager
-        val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-
-
-        val list = packageManager.getInstalledPackages(PackageManager.GET_ACTIVITIES)
-        val filter = list.filter {
-            !isSystemPackage(it)
-        }
-
-        println("list.size = ${list.size}")
-        println("filter.size = ${filter.size}")
-        list.forEach {
-            println(it.packageName)
-        }
-
-
     }
 
-
-    private fun isSystemPackage(pkgInfo: PackageInfo): Boolean {
-        return pkgInfo.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0
-    }
 }
