@@ -1,5 +1,7 @@
 package me.buck.andtools
 
+import android.app.ActivityManager
+import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +23,10 @@ class MainActivity : AppCompatActivity() {
         appsInfo.forEach {
             println(it.name)
         }
+
+        val pm = packageManager
+        val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+
 
         val list = packageManager.getInstalledPackages(PackageManager.GET_ACTIVITIES)
         val filter = list.filter {
