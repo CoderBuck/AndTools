@@ -3,6 +3,8 @@ package github.coderbuck.andtools
 import android.app.Application
 import com.blankj.utilcode.util.CrashUtils
 import com.blankj.utilcode.util.Utils
+import github.coderbuck.andtools.tool.CustomTagDebugTree
+import timber.log.Timber
 import java.io.File
 
 /**
@@ -15,5 +17,6 @@ class App : Application() {
         super.onCreate()
         Utils.init(this)
         CrashUtils.init(filesDir.path + "/crash/")
+        Timber.plant(CustomTagDebugTree())
     }
 }
