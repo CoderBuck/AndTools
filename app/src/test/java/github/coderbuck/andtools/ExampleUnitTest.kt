@@ -1,4 +1,4 @@
-package me.buck.andtools
+package github.coderbuck.andtools
 
 import org.junit.Test
 

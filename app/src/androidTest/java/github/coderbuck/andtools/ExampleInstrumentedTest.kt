@@ -1,4 +1,4 @@
-package me.buck.andtools
+package github.coderbuck.andtools
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
