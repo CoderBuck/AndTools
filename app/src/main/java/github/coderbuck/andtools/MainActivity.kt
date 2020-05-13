@@ -3,6 +3,8 @@ package github.coderbuck.andtools
 import android.os.Bundle
 import android.os.Environment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.FileUtils
 import github.coderbuck.andtools.databinding.ActivityMainBinding
@@ -14,11 +16,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
     }
 
     private fun tmp() {
